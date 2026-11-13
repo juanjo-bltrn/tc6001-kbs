@@ -1,0 +1,42 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for 5df
+% SZS output start Proof for 5df
+2. ! [X0] : (doctoralStudent(X0) => researcher(primarySupervisor(X0))) [input(axiom) r3_f "5df.p"]
+5. ! [X0] : (doctoralStudent(X0) => supervises(primarySupervisor(X0),X0)) [input(axiom) r6_f "5df.p"]
+19. ! [X0] : (doctoralStudent(X0) => (researcher(primarySupervisor(X0)) & supervises(primarySupervisor(X0),X0))) [input(conjecture) q_common_f "5df.p"]
+20. ~ ! [X0] : (doctoralStudent(X0) => (researcher(primarySupervisor(X0)) & supervises(primarySupervisor(X0),X0))) [negated conjecture 19]
+28. ! [X0] : (researcher(primarySupervisor(X0)) | ~doctoralStudent(X0)) [ennf transformation 2]
+31. ! [X0] : (supervises(primarySupervisor(X0),X0) | ~doctoralStudent(X0)) [ennf transformation 5]
+32. ? [X0] : ((~researcher(primarySupervisor(X0)) | ~supervises(primarySupervisor(X0),X0)) & doctoralStudent(X0)) [ennf transformation 20]
+35. (~researcher(primarySupervisor(sK2)) | ~supervises(primarySupervisor(sK2),sK2)) & doctoralStudent(sK2) [skolemize 32]
+36. researcher(primarySupervisor(X0)) | ~doctoralStudent(X0) [cnf transformation 28]
+39. supervises(primarySupervisor(X0),X0) | ~doctoralStudent(X0) [cnf transformation 31]
+49. doctoralStudent(sK2) [cnf transformation 35]
+50. ~researcher(primarySupervisor(sK2)) | ~supervises(primarySupervisor(sK2),sK2) [cnf transformation 35]
+52. 1 <=> supervises(primarySupervisor(sK2),sK2) [avatar definition]
+54. ~supervises(primarySupervisor(sK2),sK2) <- (~1) [avatar component clause 52]
+56. 2 <=> researcher(primarySupervisor(sK2)) [avatar definition]
+58. ~researcher(primarySupervisor(sK2)) <- (~2) [avatar component clause 56]
+59. ~1 | ~2 [avatar split clause 50,56,52]
+88. ~doctoralStudent(sK2) <- (~1) [resolution 39,54]
+93. $false <- (~1) [forward subsumption resolution 88,49]
+94. 1 [avatar contradiction clause 93]
+95. ~doctoralStudent(sK2) <- (~2) [resolution 58,36]
+96. $false <- (~2) [forward subsumption resolution 95,49]
+97. 2 [avatar contradiction clause 96]
+s1. ~1 | ~2 [sat_conversion 59]
+s9. 1 [sat_conversion 94]
+s10. 2 [sat_conversion 97]
+s13. # [rat s1,s10,s9]
+98. $false [avatar sat refutation s13]
+% SZS output end Proof for 5df
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.041 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------

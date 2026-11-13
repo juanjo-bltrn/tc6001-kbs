@@ -1,0 +1,33 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for 5p
+% SZS output start Proof for 5p
+3. ! [X0,X1,X2] : ((doctoralStudent(X0) & primarySupervisorOf(X1,X0) & primarySupervisorOf(X2,X0)) => X1 = X2) [input(axiom) r2b "5p.p"]
+5. ! [X0,X1] : (primarySupervisorOf(X1,X0) => doctoralStudent(X0)) [input(axiom) t_ps_student "5p.p"]
+22. ! [X0,X1,X2] : ((doctoralStudent(X0) & primarySupervisorOf(X1,X0) & primarySupervisorOf(X2,X0)) => X1 = X2) [input(conjecture) q_uniq "5p.p"]
+23. ~ ! [X0,X1,X2] : ((doctoralStudent(X0) & primarySupervisorOf(X1,X0) & primarySupervisorOf(X2,X0)) => X1 = X2) [negated conjecture 22]
+39. ! [X0,X1,X2] : (X1 = X2 | (~doctoralStudent(X0) | ~primarySupervisorOf(X1,X0) | ~primarySupervisorOf(X2,X0))) [ennf transformation 3]
+40. ! [X0,X1,X2] : (X1 = X2 | ~doctoralStudent(X0) | ~primarySupervisorOf(X1,X0) | ~primarySupervisorOf(X2,X0)) [flattening 39]
+41. ! [X0,X1] : (doctoralStudent(X0) | ~primarySupervisorOf(X1,X0)) [ennf transformation 5]
+43. ? [X0,X1,X2] : (X1 != X2 & (doctoralStudent(X0) & primarySupervisorOf(X1,X0) & primarySupervisorOf(X2,X0))) [ennf transformation 23]
+44. ? [X0,X1,X2] : (X1 != X2 & doctoralStudent(X0) & primarySupervisorOf(X1,X0) & primarySupervisorOf(X2,X0)) [flattening 43]
+46. sK2 != sK3 & doctoralStudent(sK1) & primarySupervisorOf(sK2,sK1) & primarySupervisorOf(sK3,sK1) [skolemize 44]
+48. X1 = X2 | ~doctoralStudent(X0) | ~primarySupervisorOf(X1,X0) | ~primarySupervisorOf(X2,X0) [cnf transformation 40]
+49. ~primarySupervisorOf(X1,X0) | doctoralStudent(X0) [cnf transformation 41]
+56. primarySupervisorOf(sK3,sK1) [cnf transformation 46]
+57. primarySupervisorOf(sK2,sK1) [cnf transformation 46]
+59. sK2 != sK3 [cnf transformation 46]
+60. ~primarySupervisorOf(X2,X0) | ~primarySupervisorOf(X1,X0) | X1 = X2 [forward subsumption resolution 48,49]
+74. ~primarySupervisorOf(X0,sK1) | sK3 = X0 [resolution 60,56]
+78. sK2 = sK3 [resolution 74,57]
+81. $false [forward subsumption resolution 78,59]
+% SZS output end Proof for 5p
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.009 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------

@@ -1,0 +1,39 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for 5dp
+% SZS output start Proof for 5dp
+2. ! [X0] : (doctoralStudent(X0) => ? [X1] : primarySupervisorOf(X1,X0)) [input(axiom) r2a "5dp.p"]
+4. ! [X0,X1] : (primarySupervisorOf(X1,X0) => researcher(X1)) [input(axiom) r3_t_ps_super "5dp.p"]
+5. ! [X0,X1] : (primarySupervisorOf(X1,X0) => doctoralStudent(X0)) [input(axiom) t_ps_student "5dp.p"]
+8. ! [X0,X1] : (primarySupervisorOf(X1,X0) => supervises(X1,X0)) [input(axiom) r6 "5dp.p"]
+22. ! [X0] : (doctoralStudent(X0) => ? [X1] : (primarySupervisorOf(X1,X0) & researcher(X1) & supervises(X1,X0))) [input(conjecture) q_common_p "5dp.p"]
+23. ~ ! [X0] : (doctoralStudent(X0) => ? [X1] : (primarySupervisorOf(X1,X0) & researcher(X1) & supervises(X1,X0))) [negated conjecture 22]
+31. ! [X0] : (? [X1] : primarySupervisorOf(X1,X0) | ~doctoralStudent(X0)) [ennf transformation 2]
+34. ! [X0,X1] : (researcher(X1) | ~primarySupervisorOf(X1,X0)) [ennf transformation 4]
+35. ! [X0,X1] : (doctoralStudent(X0) | ~primarySupervisorOf(X1,X0)) [ennf transformation 5]
+38. ! [X0,X1] : (supervises(X1,X0) | ~primarySupervisorOf(X1,X0)) [ennf transformation 8]
+39. ? [X0] : (! [X1] : (~primarySupervisorOf(X1,X0) | ~researcher(X1) | ~supervises(X1,X0)) & doctoralStudent(X0)) [ennf transformation 23]
+40. ! [X0] : (primarySupervisorOf(sK0(X0),X0) | ~doctoralStudent(X0)) [skolemize 31]
+43. ! [X1] : (~primarySupervisorOf(X1,sK3) | ~researcher(X1) | ~supervises(X1,sK3)) & doctoralStudent(sK3) [skolemize 39]
+44. primarySupervisorOf(sK0(X0),X0) | ~doctoralStudent(X0) [cnf transformation 40]
+46. ~primarySupervisorOf(X1,X0) | researcher(X1) [cnf transformation 34]
+47. ~primarySupervisorOf(X1,X0) | doctoralStudent(X0) [cnf transformation 35]
+50. ~primarySupervisorOf(X1,X0) | supervises(X1,X0) [cnf transformation 38]
+60. doctoralStudent(sK3) [cnf transformation 43]
+61. ~supervises(X1,sK3) | ~researcher(X1) | ~primarySupervisorOf(X1,sK3) [cnf transformation 43]
+93. supervises(sK0(X0),X0) | ~doctoralStudent(X0) [resolution 50,44]
+98. ~doctoralStudent(sK3) | ~researcher(sK0(sK3)) | ~primarySupervisorOf(sK0(sK3),sK3) [resolution 93,61]
+99. ~researcher(sK0(sK3)) | ~primarySupervisorOf(sK0(sK3),sK3) [forward subsumption resolution 98,47]
+100. ~primarySupervisorOf(sK0(sK3),sK3) [forward subsumption resolution 99,46]
+104. ~doctoralStudent(sK3) [resolution 100,44]
+105. $false [forward subsumption resolution 104,60]
+% SZS output end Proof for 5dp
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.034 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------

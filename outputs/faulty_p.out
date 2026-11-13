@@ -1,0 +1,29 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for faulty_p
+% SZS output start Proof for faulty_p
+11. doctoralStudent(david) [input(axiom) f_david "faulty_p.p"]
+12. researcher(bob) [input(axiom) f_bob "faulty_p.p"]
+22. ! [X0,X1] : ((researcher(X0) & doctoralStudent(X1)) => supervises(X0,X1)) [input(axiom) faulty_all_supervise "faulty_p.p"]
+23. supervises(bob,david) [input(conjecture) q_bob_david "faulty_p.p"]
+24. ~ supervises(bob,david) [negated conjecture 23]
+25. ~supervises(bob,david) [flattening 24]
+41. ! [X0,X1] : (supervises(X0,X1) | (~researcher(X0) | ~doctoralStudent(X1))) [ennf transformation 22]
+42. ! [X0,X1] : (supervises(X0,X1) | ~researcher(X0) | ~doctoralStudent(X1)) [flattening 41]
+55. doctoralStudent(david) [cnf transformation 11]
+56. researcher(bob) [cnf transformation 12]
+62. supervises(X0,X1) | ~researcher(X0) | ~doctoralStudent(X1) [cnf transformation 42]
+63. ~supervises(bob,david) [cnf transformation 25]
+94. ~researcher(bob) | ~doctoralStudent(david) [resolution 62,63]
+96. ~doctoralStudent(david) [forward subsumption resolution 94,56]
+97. $false [forward subsumption resolution 96,55]
+% SZS output end Proof for faulty_p
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.012 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------

@@ -1,0 +1,25 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for academic_base
+% SZS output start Proof for academic_base
+1. ! [X0] : (doctoralStudent(X0) => graduateStudent(X0)) [input(axiom) r1 "academic_base.p"]
+8. doctoralStudent(alice) [input(axiom) f_alice "academic_base.p"]
+20. graduateStudent(alice) [input(conjecture) goal "academic_base.p"]
+21. ~ graduateStudent(alice) [negated conjecture 20]
+22. ~graduateStudent(alice) [flattening 21]
+36. ! [X0] : (graduateStudent(X0) | ~doctoralStudent(X0)) [ennf transformation 1]
+41. ~doctoralStudent(X0) | graduateStudent(X0) [cnf transformation 36]
+47. doctoralStudent(alice) [cnf transformation 8]
+51. ~graduateStudent(alice) [cnf transformation 22]
+53. graduateStudent(alice) [resolution 41,47]
+55. $false [forward subsumption resolution 53,51]
+% SZS output end Proof for academic_base
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.012 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------

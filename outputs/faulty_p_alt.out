@@ -1,0 +1,27 @@
+% Running in auto input_syntax mode. Trying TPTP
+% Refutation found. Thanks to Tanya!
+% SZS status Unsatisfiable for faulty_p_alt
+% SZS output start Proof for faulty_p_alt
+9. ! [X0] : ~supervises(X0,X0) [input(axiom) r7 "faulty_p_alt.p"]
+10. doctoralStudent(alice) [input(axiom) f_alice "faulty_p_alt.p"]
+22. ! [X0,X1] : ((researcher(X0) & doctoralStudent(X1)) => supervises(X0,X1)) [input(axiom) faulty_all_supervise "faulty_p_alt.p"]
+23. researcher(alice) [input(axiom) f_alice_researcher "faulty_p_alt.p"]
+39. ! [X0,X1] : (supervises(X0,X1) | (~researcher(X0) | ~doctoralStudent(X1))) [ennf transformation 22]
+40. ! [X0,X1] : (supervises(X0,X1) | ~researcher(X0) | ~doctoralStudent(X1)) [flattening 39]
+51. ~supervises(X0,X0) [cnf transformation 9]
+52. doctoralStudent(alice) [cnf transformation 10]
+60. supervises(X0,X1) | ~researcher(X0) | ~doctoralStudent(X1) [cnf transformation 40]
+61. researcher(alice) [cnf transformation 23]
+92. ~researcher(X0) | ~doctoralStudent(X0) [resolution 60,51]
+97. ~doctoralStudent(alice) [resolution 92,61]
+102. $false [forward subsumption resolution 97,52]
+% SZS output end Proof for faulty_p_alt
+% ------------------------------
+% Version: Vampire 5.1.0 (Release build, commit 7b2f410 on 2026-08-13 10:17:34 +0200)
+% Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 NOTFOUND
+% CaDiCaL version: 2.1.3
+% Termination reason: Refutation
+% Time elapsed: 0.012 s
+% Peak memory usage: 12 MB
+% ------------------------------
+% ------------------------------
